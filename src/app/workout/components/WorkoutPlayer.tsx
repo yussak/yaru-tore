@@ -13,6 +13,7 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
   const [timeLeft, setTimeLeft] = useState(exercises[0]?.durationSec || 30);
   const [totalElapsed, setTotalElapsed] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInterval, setIsInterval] = useState(false);
 
   // todo:動き方の画像か何かほしい　文章があるならいいかもしれないけど
 
@@ -22,13 +23,28 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          const next = index + 1;
-          if (next >= exercises.length) {
-            clearInterval(timer);
-            onFinish();
+          if (isInterval) {
+            // インターバル終了時
+            setIsInterval(false);
+            const next = index + 1;
+            if (next >= exercises.length) {
+              clearInterval(timer);
+              onFinish();
+            } else {
+              setIndex(next);
+              setTimeLeft(exercises[next].durationSec);
+            }
           } else {
-            setIndex(next);
-            setTimeLeft(exercises[next].durationSec);
+            // トレーニング終了時
+            const next = index + 1;
+            if (next >= exercises.length) {
+              clearInterval(timer);
+              onFinish();
+            } else {
+              // インターバル開始
+              setIsInterval(true);
+              setTimeLeft(15); // 15秒のインターバル
+            }
           }
           return 0;
         }
@@ -39,7 +55,7 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [index, isPaused]);
+  }, [index, isPaused, isInterval]);
 
   const current = exercises[index];
   const next = exercises[index + 1];
@@ -50,23 +66,32 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
         種目 {index + 1} / {exercises.length}（経過 {formatTime(totalElapsed)}）
       </p>
 
-      <h1 className="text-2xl font-bold">{current.name}</h1>
+      {isInterval ? (
+        <>
+          <h1 className="text-2xl font-bold">インターバル</h1>
+          <div className="text-5xl font-mono">{formatTime(timeLeft)}</div>
+          <p className="text-lg mt-4">次のトレーニングに備えて休憩しましょう</p>
+          {next && (
+            <p className="text-sm text-gray-600 mt-6">
+              次は「{next.name}」 - {next.durationSec}秒
+            </p>
+          )}
+        </>
+      ) : (
+        <>
+          <h1 className="text-2xl font-bold">{current.name}</h1>
+          <div className="text-5xl font-mono">{formatTime(timeLeft)}</div>
+          <p className="text-lg mt-4">{current.description}</p>
+          {current.point && <p className="text-sm text-blue-500">☑ {current.point}</p>}
+        </>
+      )}
 
-      <div className="text-5xl font-mono">{formatTime(timeLeft)}</div>
-
-      <p className="text-lg mt-4">{current.description}</p>
-      {current.point && <p className="text-sm text-blue-500">☑ {current.point}</p>}
       <button 
         onClick={() => setIsPaused(!isPaused)}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         {isPaused ? "▶︎ 再開する" : "⏸︎ 停止する"}
       </button>
-      {next && (
-        <p className="text-sm text-gray-600 mt-6">
-          次は「{next.name}」 - {next.durationSec}秒
-        </p>
-      )}
     </div>
   );
 }
