@@ -27,7 +27,7 @@ export default function WorkoutPage() {
 
   const handleStart = () => {
     // 必要なら menu を state や context に保存して /start へ遷移
-    router.push("/start");
+    router.push("/workout/play");
   };
 
   if (!type || !durationMin) return <p>パラメータが不正です</p>;
