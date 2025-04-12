@@ -15,7 +15,6 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    // なんでreturn?ない
     if (isPaused) return;
 
     const timer = setInterval(() => {
