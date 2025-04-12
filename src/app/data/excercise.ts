@@ -3,14 +3,14 @@ export type Exercise = {
   id: string;
   name: string;
   // todo:筋トレ、有酸素両方を提案するのもあったらいいかも
-  type: typeof TRAINING | typeof AEROBIC;
+  type: typeof MUSCLE | typeof AEROBIC;
   // part: "全身" | "上半身" | "下半身";
   durationSec: number; // 実行時間（秒）
   description: string;
   point: string;
 };
 
-const TRAINING = "筋トレ";
+const MUSCLE = "筋トレ";
 const AEROBIC = "有酸素";
 
 // メニューや時間は仮
@@ -35,7 +35,7 @@ export const exercises: Exercise[] = [
   {
     id: "squat",
     name: "スクワット",
-    type: TRAINING,
+    type: MUSCLE,
     durationSec: 40,
     description: "足を肩幅に開いて腰を落とすトレーニング",
     point: "膝がつま先より前に出ないように、お尻を後ろに引くイメージで",
@@ -43,7 +43,7 @@ export const exercises: Exercise[] = [
   {
     id: "push-up",
     name: "腕立て伏せ",
-    type: TRAINING,
+    type: MUSCLE,
     durationSec: 30,
     description: "胸・腕を鍛える基本的な自重トレーニング",
     point: "背中が反らないように、一直線をキープしたまま腕を曲げる",
@@ -51,7 +51,7 @@ export const exercises: Exercise[] = [
   {
     id: "plank",
     name: "プランク",
-    type: TRAINING,
+    type: MUSCLE,
     durationSec: 30,
     description: "体幹を鍛える静止トレーニング",
     point: "腰が落ちたり上がったりしないよう、体をまっすぐ保つ",
@@ -59,7 +59,7 @@ export const exercises: Exercise[] = [
   {
     id: "joutai",
     name: "上体起こし",
-    type: TRAINING,
+    type: MUSCLE,
     durationSec: 30,
     description: "腹筋を鍛える基本的な自重トレーニング",
     point: "勢いを使わず、腹筋を意識してゆっくり上げる",
@@ -67,7 +67,7 @@ export const exercises: Exercise[] = [
   {
     id: "haikin",
     name: "背筋",
-    type: TRAINING,
+    type: MUSCLE,
     durationSec: 30,
     description: "背筋を鍛える基本的な自重トレーニング",
     point: "あごを引き、背中を反らせすぎないように注意",
