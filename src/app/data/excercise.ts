@@ -13,6 +13,7 @@ const TRAINING = "筋トレ";
 const AEROBIC = "有酸素";
 
 // メニューや時間は仮
+// todo:メニュー任意で追加できたら面白そう
 export const exercises: Exercise[] = [
   {
     id: "jumping-jacks",
