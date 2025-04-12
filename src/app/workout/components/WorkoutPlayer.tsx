@@ -14,6 +14,8 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
   const [totalElapsed, setTotalElapsed] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // todo:動き方の画像か何かほしい　文章があるならいいかもしれないけど
+
   useEffect(() => {
     if (isPaused) return;
 
