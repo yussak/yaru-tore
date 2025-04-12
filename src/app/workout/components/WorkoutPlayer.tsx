@@ -2,6 +2,7 @@
 
 import { Exercise } from "@/app/data/excercise";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   exercises: Exercise[];
@@ -9,6 +10,7 @@ type Props = {
 };
 
 export default function WorkoutPlayer({ exercises, onFinish }: Props) {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [timeLeft, setTimeLeft] = useState(exercises[0]?.durationSec || 30);
   const [totalElapsed, setTotalElapsed] = useState(0);
@@ -16,6 +18,7 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
   const [isInterval, setIsInterval] = useState(false);
 
   // todo:動き方の画像か何かほしい　文章があるならいいかもしれないけど
+  // todo:中断ボタン追加するかも
 
   useEffect(() => {
     if (isPaused) return;
@@ -91,6 +94,13 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         {isPaused ? "▶︎ 再開する" : "⏸︎ 停止する"}
+      </button>
+
+      <button
+        onClick={() => router.push("/")}
+        className="ml-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+      >
+        中断する
       </button>
     </div>
   );
