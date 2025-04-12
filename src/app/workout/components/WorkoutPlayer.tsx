@@ -18,7 +18,8 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
   const [isInterval, setIsInterval] = useState(false);
 
   // todo:動き方の画像か何かほしい　文章があるならいいかもしれないけど
-  // todo:中断ボタン追加するかも
+
+  const INTERVAL_SECOND = 15;
 
   useEffect(() => {
     if (isPaused) return;
@@ -46,7 +47,7 @@ export default function WorkoutPlayer({ exercises, onFinish }: Props) {
             } else {
               // インターバル開始
               setIsInterval(true);
-              setTimeLeft(15); // 15秒のインターバル
+              setTimeLeft(INTERVAL_SECOND); // 15秒のインターバル
             }
           }
           return 0;
