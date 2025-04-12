@@ -35,6 +35,7 @@ export default function WorkoutForm() {
       </div> */}
 
       <div>
+        {/* todo:現状時間を増やしてもメニューが変わらない。ので、30,40sのままでメニュー数を増やす（かも。要検討） */}
         <label>運動時間（分）</label>
         <input
           type="number"
